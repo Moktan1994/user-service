@@ -1,17 +1,33 @@
 package com.securebank.user.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class UserDTO {
+    private Long id;
+    @NotBlank(message = "Name is required")
     private String name;
+    @Email(message = "Email should be valid")
+    @NotBlank(message = "Email is required")
     private String email;
     private String role;
 
     public UserDTO() {
     }
 
-    public UserDTO(String name, String email, String role) {
+    public UserDTO(Long id,String name, String email, String role) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.role = role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

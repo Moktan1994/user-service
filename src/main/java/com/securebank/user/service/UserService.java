@@ -18,35 +18,16 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDTO createUser(UserDTO dto) {
-        User user = new User();
-        user.setName(dto.getName());
-        user.setEmail(dto.getEmail());
-        user.setRole(dto.getRole());
-        User saved = userRepository.save(user);
-        return toDTO(saved);
-
-    }
-    private UserDTO toDTO(User user) {
-        return new UserDTO(user.getName(),user.getEmail(),user.getRole());
-    }
-
-
-    public List<UserDTO> getAllUser() {
-      return userRepository.findAll()
-              .stream()
-              .map(this::toDTO)
-              .collect(Collectors.toList());
-    }
-
-    public UserDTO getUser(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return toDTO(user);
-    }
-
-    public void deleteUser(Long id) {
+   public User createUser(User user) {
+        return userRepository.save(user);
+   }
+   public List<User> getAllUser() {
+        return userRepository.findAll();
+   }
+   public User getById(Long id) {
+        return userRepository.findById(id).orElse(null);
+   }
+   public void deleteById(Long id) {
         userRepository.deleteById(id);
-
-    }
+   }
 }
